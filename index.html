@@ -1,0 +1,1408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Miso Money — Free Financial Tools for Vietnamese-Americans</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500;600&display=swap');
+
+  :root {
+    --gold: #d4af37;
+    --gold-light: #f0d060;
+    --gold-dark: #a88820;
+    --bg: #0a0a0a;
+    --bg2: #111111;
+    --bg3: #1a1a1a;
+    --border: #2a2a2a;
+    --text: #f0ede8;
+    --muted: #888888;
+    --red: #ef4444;
+    --green: #4ade80;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    min-height: 100vh;
+  }
+
+  /* NAV */
+  nav {
+    background: rgba(10,10,10,0.95);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border);
+    padding: 16px 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+
+  .nav-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    font-weight: 700;
+    background: linear-gradient(135deg, #f0ede8, var(--gold));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .nav-sub { font-size: 11px; color: var(--gold); letter-spacing: 2px; text-transform: uppercase; }
+
+  .nav-cta {
+    background: var(--gold);
+    color: #0a0a0a;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: 13px;
+    cursor: pointer;
+    letter-spacing: 0.3px;
+    text-decoration: none;
+  }
+
+  /* HERO */
+  .hero {
+    text-align: center;
+    padding: 80px 24px 60px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(ellipse, rgba(212,175,55,0.08) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .hero-badge {
+    display: inline-block;
+    background: rgba(212,175,55,0.1);
+    border: 1px solid rgba(212,175,55,0.3);
+    color: var(--gold);
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    padding: 6px 16px;
+    border-radius: 20px;
+    margin-bottom: 24px;
+  }
+
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(36px, 6vw, 64px);
+    font-weight: 900;
+    line-height: 1.1;
+    margin-bottom: 20px;
+    background: linear-gradient(135deg, #f0ede8 30%, var(--gold));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .hero p {
+    font-size: 18px;
+    color: var(--muted);
+    max-width: 500px;
+    margin: 0 auto 16px;
+    line-height: 1.6;
+  }
+
+  .hero-viet {
+    font-size: 15px;
+    color: #555;
+    font-style: italic;
+    margin-bottom: 40px;
+  }
+
+  /* TOOLS GRID */
+  .tools-section {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 24px 80px;
+  }
+
+  .section-label {
+    text-align: center;
+    font-size: 11px;
+    letter-spacing: 4px;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 40px;
+  }
+
+  .tools-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 16px;
+  }
+
+  .tool-card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 28px;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-decoration: none;
+    display: block;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .tool-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+
+  .tool-card:hover {
+    border-color: rgba(212,175,55,0.4);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 32px rgba(212,175,55,0.08);
+  }
+
+  .tool-card:hover::before { opacity: 1; }
+
+  .tool-icon { font-size: 32px; margin-bottom: 16px; }
+
+  .tool-card h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 8px;
+  }
+
+  .tool-card p {
+    font-size: 14px;
+    color: var(--muted);
+    line-height: 1.5;
+    margin-bottom: 16px;
+  }
+
+  .tool-viet {
+    font-size: 12px;
+    color: #555;
+    font-style: italic;
+    margin-bottom: 16px;
+  }
+
+  .tool-link {
+    font-size: 13px;
+    color: var(--gold);
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .tool-badge {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    background: rgba(212,175,55,0.15);
+    color: var(--gold);
+    font-size: 10px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-weight: 600;
+  }
+
+  .badge-soon {
+    background: rgba(100,100,100,0.15);
+    color: #555;
+  }
+
+  /* CALCULATOR AREA */
+  .calc-section {
+    display: none;
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 0 24px 80px;
+  }
+
+  .calc-section.active { display: block; }
+
+  .calc-back {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--muted);
+    font-size: 14px;
+    cursor: pointer;
+    margin-bottom: 32px;
+    background: none;
+    border: none;
+    padding: 0;
+  }
+
+  .calc-back:hover { color: var(--gold); }
+
+  .calc-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 32px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    background: linear-gradient(135deg, #f0ede8, var(--gold));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .calc-sub { color: var(--muted); font-size: 15px; margin-bottom: 32px; }
+
+  .card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 24px;
+    margin-bottom: 16px;
+  }
+
+  .field-label {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+
+  .field-name {
+    font-size: 13px;
+    color: var(--muted);
+    letter-spacing: 0.5px;
+  }
+
+  .field-name.accent { color: var(--gold); font-weight: 600; }
+
+  .field-value {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--text);
+  }
+
+  .field-value.accent { color: var(--gold); }
+
+  input[type=range] {
+    width: 100%;
+    height: 4px;
+    border-radius: 2px;
+    outline: none;
+    -webkit-appearance: none;
+    cursor: pointer;
+    margin-bottom: 4px;
+  }
+
+  input[type=range].normal {
+    background: linear-gradient(to right, #555 var(--pct, 50%), #222 var(--pct, 50%));
+  }
+
+  input[type=range].accent-range {
+    background: linear-gradient(to right, var(--gold) var(--pct, 0%), #222 var(--pct, 0%));
+  }
+
+  input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 16px; height: 16px;
+    border-radius: 50%;
+    background: var(--gold);
+    cursor: pointer;
+    box-shadow: 0 0 0 3px rgba(212,175,55,0.2);
+  }
+
+  .results-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+
+  .result-card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 18px;
+  }
+
+  .result-card.highlight {
+    background: #1a1700;
+    border-color: #2a2200;
+  }
+
+  .result-label {
+    font-size: 11px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 10px;
+  }
+
+  .result-label.gold { color: var(--gold); }
+
+  .result-big {
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--muted);
+    margin-bottom: 4px;
+  }
+
+  .result-big.gold { color: var(--gold); }
+
+  .result-small { font-size: 12px; color: #555; }
+
+  .result-divider {
+    border-top: 1px solid var(--border);
+    margin: 12px 0;
+  }
+
+  .savings-banner {
+    background: linear-gradient(135deg, #1a1700, #0f1200);
+    border: 1px solid var(--gold);
+    border-radius: 12px;
+    padding: 20px;
+    text-align: center;
+    margin-bottom: 16px;
+    display: none;
+  }
+
+  .savings-banner.show { display: block; }
+
+  .savings-title {
+    font-size: 11px;
+    color: var(--gold);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+
+  .savings-numbers {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+  }
+
+  .savings-num {
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--gold);
+    font-family: 'Playfair Display', serif;
+  }
+
+  .savings-sub { font-size: 12px; color: var(--muted); }
+
+  /* TABS */
+  .tabs {
+    display: flex;
+    gap: 4px;
+    background: #111;
+    padding: 4px;
+    border-radius: 10px;
+    margin-bottom: 16px;
+  }
+
+  .tab-btn {
+    flex: 1;
+    padding: 10px 8px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: 400;
+    background: transparent;
+    color: var(--muted);
+    font-family: 'DM Sans', sans-serif;
+    transition: all 0.15s;
+  }
+
+  .tab-btn.active {
+    background: var(--gold);
+    color: #0a0a0a;
+    font-weight: 700;
+  }
+
+  .tab-content { display: none; }
+  .tab-content.active { display: block; }
+
+  .compare-row {
+    padding: 14px 20px;
+    border-bottom: 1px solid #1a1a1a;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    transition: background 0.1s;
+  }
+
+  .compare-row:hover { background: #1a1700; }
+  .compare-row.selected { background: #1a1700; }
+
+  .cr-left { }
+  .cr-amount { font-size: 15px; font-weight: 600; }
+  .cr-amount.active { color: var(--gold); }
+  .cr-detail { font-size: 12px; color: #666; margin-top: 2px; }
+  .cr-right { text-align: right; }
+  .cr-save { font-size: 15px; font-weight: 600; color: var(--gold); }
+  .cr-savelab { font-size: 11px; color: #555; }
+
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  thead tr { background: #111; }
+  th { padding: 10px 16px; color: #666; font-weight: 400; font-size: 11px; letter-spacing: 0.5px; }
+  th:first-child { text-align: left; }
+  th:not(:first-child) { text-align: right; }
+  td { padding: 10px 16px; border-top: 1px solid #1a1a1a; }
+  td:first-child { color: var(--muted); }
+  td:not(:first-child) { text-align: right; }
+  .td-int { color: var(--red); }
+  .td-prin { color: var(--green); }
+  .td-bal { color: var(--text); font-weight: 600; }
+
+  .tip-card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 12px;
+  }
+
+  .tip-vi { font-size: 14px; color: var(--gold); font-weight: 600; margin-bottom: 4px; }
+  .tip-en { font-size: 13px; color: var(--text); margin-bottom: 6px; }
+  .tip-detail { font-size: 12px; color: #666; font-style: italic; }
+
+  /* CTA */
+  .cta-block {
+    background: var(--bg2);
+    border: 1px solid #2a2200;
+    border-radius: 16px;
+    padding: 28px;
+    text-align: center;
+    margin-top: 8px;
+  }
+
+  .cta-label { font-size: 12px; color: var(--gold); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 6px; }
+  .cta-name { font-size: 14px; color: var(--muted); margin-bottom: 20px; }
+
+  .cta-btn {
+    display: inline-block;
+    padding: 14px 32px;
+    background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+    border-radius: 10px;
+    color: #0a0a0a;
+    font-weight: 700;
+    font-size: 15px;
+    cursor: pointer;
+    text-decoration: none;
+    letter-spacing: 0.3px;
+    border: none;
+    font-family: 'DM Sans', sans-serif;
+  }
+
+  .cta-foot { font-size: 11px; color: #444; margin-top: 10px; }
+
+  /* ABOUT */
+  .about-section {
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 0 24px 80px;
+    text-align: center;
+  }
+
+  .about-card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 40px;
+  }
+
+  .about-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    background: linear-gradient(135deg, #f0ede8, var(--gold));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .about-creds {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-bottom: 16px;
+  }
+
+  .cred-pill {
+    background: rgba(212,175,55,0.1);
+    border: 1px solid rgba(212,175,55,0.2);
+    color: var(--gold);
+    font-size: 12px;
+    font-weight: 600;
+    padding: 6px 12px;
+    border-radius: 20px;
+  }
+
+  .about-bio { font-size: 15px; color: var(--muted); line-height: 1.7; margin-bottom: 24px; }
+
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 20px 24px;
+    text-align: center;
+    color: #444;
+    font-size: 12px;
+  }
+
+  @media (max-width: 500px) {
+    .results-grid { grid-template-columns: 1fr; }
+    .savings-numbers { gap: 24px; }
+    .savings-num { font-size: 24px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div>
+    <div class="nav-logo">Miso Money</div>
+    <div class="nav-sub">by Freedom by Design</div>
+  </div>
+  <a href="#contact" class="nav-cta" onclick="scrollToContact()">Free Session →</a>
+</nav>
+
+<!-- HOME PAGE -->
+<div id="home-page">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-badge">🇻🇳 Built for Vietnamese-Americans</div>
+    <h1>Your Money.<br>Your Future.</h1>
+    <p>Free financial tools to help you understand your money — no jargon, no judgment.</p>
+    <div class="hero-viet">Công cụ tài chính miễn phí cho cộng đồng người Việt</div>
+  </div>
+
+  <!-- TOOLS -->
+  <div class="tools-section">
+    <div class="section-label">Free Calculators</div>
+    <div class="tools-grid">
+
+      <a class="tool-card" onclick="showCalc('debt')" href="javascript:void(0)">
+        <div class="tool-badge">Free ✓</div>
+        <div class="tool-icon">💳</div>
+        <h3>Debt Payoff</h3>
+        <p>See exactly how extra payments save you time and money.</p>
+        <div class="tool-viet">Tính thời gian trả nợ</div>
+        <div class="tool-link">Use Calculator →</div>
+      </a>
+
+      <a class="tool-card" onclick="showCalc('home')" href="javascript:void(0)">
+        <div class="tool-badge">Free ✓</div>
+        <div class="tool-icon">🏠</div>
+        <h3>Home Affordability</h3>
+        <p>Find out how much house you can actually afford in the Inland Empire.</p>
+        <div class="tool-viet">Mua nhà được bao nhiêu tiền?</div>
+        <div class="tool-link">Use Calculator →</div>
+      </a>
+
+      <a class="tool-card" onclick="showCalc('retire')" href="javascript:void(0)">
+        <div class="tool-badge">Free ✓</div>
+        <div class="tool-icon">🌴</div>
+        <h3>Retirement Savings</h3>
+        <p>How much do you need to save to retire comfortably?</p>
+        <div class="tool-viet">Cần tiết kiệm bao nhiêu để về hưu?</div>
+        <div class="tool-link">Use Calculator →</div>
+      </a>
+
+      <a class="tool-card" onclick="showCalc('emergency')" href="javascript:void(0)">
+        <div class="tool-badge">Free ✓</div>
+        <div class="tool-icon">🛡️</div>
+        <h3>Emergency Fund</h3>
+        <p>Calculate the right emergency fund for your family.</p>
+        <div class="tool-viet">Cần để dành bao nhiêu tiền dự phòng?</div>
+        <div class="tool-link">Use Calculator →</div>
+      </a>
+
+      <a class="tool-card" onclick="showCalc('networth')" href="javascript:void(0)">
+        <div class="tool-badge">Free ✓</div>
+        <div class="tool-icon">📊</div>
+        <h3>Net Worth Snapshot</h3>
+        <p>Get a clear picture of where you stand financially today.</p>
+        <div class="tool-viet">Tài sản thực của bạn là bao nhiêu?</div>
+        <div class="tool-link">Use Calculator →</div>
+      </a>
+
+      <div class="tool-card" style="cursor:default;">
+        <div class="tool-badge badge-soon">Coming Soon</div>
+        <div class="tool-icon">📈</div>
+        <h3>Investment Growth</h3>
+        <p>See how your investments grow over time with compound interest.</p>
+        <div class="tool-viet">Tiền đầu tư tăng trưởng như thế nào?</div>
+        <div class="tool-link" style="color:#444;">Coming Soon</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ABOUT -->
+  <div class="about-section" id="contact">
+    <div class="about-card">
+      <div class="about-name">Ian Leong</div>
+      <div class="about-creds">
+        <span class="cred-pill">CPA</span>
+        <span class="cred-pill">CFP® Candidate</span>
+        <span class="cred-pill">Ontario, CA</span>
+        <span class="cred-pill">JuJubes LLC</span>
+      </div>
+      <div class="about-bio">
+        Most people work hard their whole lives but never get a clear picture of where their money is going — or where it could go.<br><br>
+        I help Vietnamese-American families in the Inland Empire take control of their finances. No jargon. No judgment. Just clarity and a plan we build together.
+      </div>
+      <a class="cta-btn" href="mailto:ian@misomoney.com">Book Free 30-Min Session →</a>
+      <div class="cta-foot">misomoney.com · Freedom by Design</div>
+    </div>
+  </div>
+
+</div><!-- end home-page -->
+
+
+<!-- ===== DEBT PAYOFF CALCULATOR ===== -->
+<div class="calc-section" id="calc-debt">
+  <button class="calc-back" onclick="showHome()">← Back to Tools</button>
+  <div class="calc-title">Debt Payoff Calculator</div>
+  <div class="calc-sub">See how extra payments save you time and money · Tính thời gian trả nợ</div>
+
+  <div class="card">
+    <div style="display:grid;gap:20px;">
+
+      <div>
+        <div class="field-label">
+          <span class="field-name">Current Balance</span>
+          <span class="field-value" id="d-bal-val">$10,000</span>
+        </div>
+        <input type="range" class="normal" id="d-bal" min="500" max="100000" step="100" value="10000" oninput="updateDebt()">
+      </div>
+
+      <div>
+        <div class="field-label">
+          <span class="field-name">Annual Interest Rate (APR)</span>
+          <span class="field-value" id="d-rate-val">19.99%</span>
+        </div>
+        <input type="range" class="normal" id="d-rate" min="0.1" max="35" step="0.01" value="19.99" oninput="updateDebt()">
+      </div>
+
+      <div>
+        <div class="field-label">
+          <span class="field-name">Monthly Payment</span>
+          <span class="field-value" id="d-pay-val">$300</span>
+        </div>
+        <input type="range" class="normal" id="d-pay" min="50" max="5000" step="10" value="300" oninput="updateDebt()">
+      </div>
+
+      <div>
+        <div class="field-label">
+          <span class="field-name accent">+ Extra Monthly Payment</span>
+          <span class="field-value accent" id="d-extra-val">+$0</span>
+        </div>
+        <input type="range" class="accent-range" id="d-extra" min="0" max="2000" step="10" value="0" oninput="updateDebt()">
+      </div>
+
+    </div>
+  </div>
+
+  <div class="results-grid">
+    <div class="result-card">
+      <div class="result-label">Without extra payment</div>
+      <div class="result-big" id="d-base-time">—</div>
+      <div class="result-small">to pay off</div>
+      <div class="result-divider"></div>
+      <div style="font-size:13px;color:#aaa;">Total interest</div>
+      <div style="font-size:18px;font-weight:600;" id="d-base-int">—</div>
+    </div>
+    <div class="result-card highlight">
+      <div class="result-label gold" id="d-extra-label">With extra payment</div>
+      <div class="result-big gold" id="d-extra-time">—</div>
+      <div class="result-small">to pay off</div>
+      <div class="result-divider"></div>
+      <div style="font-size:13px;color:#aaa;">Total interest</div>
+      <div style="font-size:18px;font-weight:600;color:#f0ede8;" id="d-extra-int">—</div>
+    </div>
+  </div>
+
+  <div class="savings-banner" id="d-savings">
+    <div class="savings-title">You Save</div>
+    <div class="savings-numbers">
+      <div>
+        <div class="savings-num" id="d-save-time">—</div>
+        <div class="savings-sub">faster payoff</div>
+      </div>
+      <div style="width:1px;background:#2a2200;"></div>
+      <div>
+        <div class="savings-num" id="d-save-money">—</div>
+        <div class="savings-sub">less interest</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="tabs">
+    <button class="tab-btn active" onclick="switchTab('debt','compare')">Compare</button>
+    <button class="tab-btn" onclick="switchTab('debt','schedule')">Schedule</button>
+    <button class="tab-btn" onclick="switchTab('debt','tips')">Vietnamese Tips</button>
+  </div>
+
+  <div class="card" style="padding:0;overflow:hidden;">
+    <div class="tab-content active" id="debt-tab-compare">
+      <div id="compare-rows"></div>
+    </div>
+
+    <div class="tab-content" id="debt-tab-schedule">
+      <div style="padding:16px 20px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;">
+        <span style="font-size:13px;color:var(--muted);">Monthly breakdown</span>
+        <span style="font-size:11px;color:#555;">First 12 months</span>
+      </div>
+      <div style="overflow-x:auto;">
+        <table>
+          <thead><tr><th>Mo</th><th>Interest</th><th>Principal</th><th>Balance</th></tr></thead>
+          <tbody id="schedule-body"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="tab-content" id="debt-tab-tips" style="padding:20px;">
+      <div class="tip-card">
+        <div class="tip-vi">🇻🇳 Trả thêm ngay tháng đầu tiên</div>
+        <div class="tip-en">Start extra payments in month 1 — not month 3</div>
+        <div class="tip-detail">Every month you wait costs more in interest. The math is unforgiving.</div>
+      </div>
+      <div class="tip-card">
+        <div class="tip-vi">🇻🇳 Avalanche method = tiết kiệm nhất</div>
+        <div class="tip-en">Pay highest interest rate debt first</div>
+        <div class="tip-detail">Vietnamese families often juggle multiple cards. Attack highest APR first — always.</div>
+      </div>
+      <div class="tip-card">
+        <div class="tip-vi">🇻🇳 Tax refund → debt, không phải shopping</div>
+        <div class="tip-en">Use your tax refund to kill debt</div>
+        <div class="tip-detail">Average family refund is $2,400+. One lump sum crushes months of interest.</div>
+      </div>
+      <div class="tip-card">
+        <div class="tip-vi">🇻🇳 Đừng chỉ trả minimum payment</div>
+        <div class="tip-en">Minimum payment is a trap</div>
+        <div class="tip-detail">On $10k at 20% APR, minimums take 28 years. Extra $100/mo = 7 years.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cta-block">
+    <div class="cta-label">Want a personalized plan?</div>
+    <div class="cta-name">Ian Leong, CPA · CFP® Candidate · JuJubes LLC</div>
+    <a class="cta-btn" href="mailto:ian@misomoney.com">Book Free 30-Min Session →</a>
+    <div class="cta-foot">misomoney.com · Free, no obligation</div>
+  </div>
+</div>
+
+
+<!-- ===== HOME AFFORDABILITY ===== -->
+<div class="calc-section" id="calc-home">
+  <button class="calc-back" onclick="showHome()">← Back to Tools</button>
+  <div class="calc-title">Home Affordability</div>
+  <div class="calc-sub">How much house can you afford? · Mua nhà được bao nhiêu?</div>
+
+  <div class="card">
+    <div style="display:grid;gap:20px;">
+      <div>
+        <div class="field-label">
+          <span class="field-name">Annual Household Income</span>
+          <span class="field-value" id="h-inc-val">$80,000</span>
+        </div>
+        <input type="range" class="normal" id="h-inc" min="20000" max="500000" step="1000" value="80000" oninput="updateHome()">
+      </div>
+      <div>
+        <div class="field-label">
+          <span class="field-name">Monthly Debt Payments (car, student loan...)</span>
+          <span class="field-value" id="h-debt-val">$500</span>
+        </div>
+        <input type="range" class="normal" id="h-debt" min="0" max="5000" step="50" value="500" oninput="updateHome()">
+      </div>
+      <div>
+        <div class="field-label">
+          <span class="field-name">Down Payment</span>
+          <span class="field-value" id="h-down-val">$40,000</span>
+        </div>
+        <input type="range" class="normal" id="h-down" min="5000" max="300000" step="1000" value="40000" oninput="updateHome()">
+      </div>
+      <div>
+        <div class="field-label">
+          <span class="field-name">Interest Rate (mortgage)</span>
+          <span class="field-value" id="h-rate-val">7.00%</span>
+        </div>
+        <input type="range" class="normal" id="h-rate" min="3" max="12" step="0.05" value="7" oninput="updateHome()">
+      </div>
+    </div>
+  </div>
+
+  <div class="results-grid">
+    <div class="result-card">
+      <div class="result-label">Max Home Price</div>
+      <div class="result-big gold" id="h-price">—</div>
+      <div class="result-small">based on 28% front-end ratio</div>
+    </div>
+    <div class="result-card">
+      <div class="result-label">Monthly Mortgage</div>
+      <div class="result-big gold" id="h-monthly">—</div>
+      <div class="result-small">principal + interest</div>
+    </div>
+  </div>
+
+  <div class="card" style="padding:20px;">
+    <div style="display:grid;gap:8px;" id="h-breakdown"></div>
+    <div style="margin-top:16px;padding-top:16px;border-top:1px solid var(--border);">
+      <div class="tip-card">
+        <div class="tip-vi">🇻🇳 Inland Empire tip</div>
+        <div class="tip-en">Ontario, Riverside, San Bernardino — more affordable than LA</div>
+        <div class="tip-detail">Median home price in Ontario CA is ~$550k. With $80k income + $40k down, you're close. Work on DTI ratio first.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cta-block">
+    <div class="cta-label">Ready to plan your home purchase?</div>
+    <div class="cta-name">Ian Leong, CPA · CFP® Candidate · JuJubes LLC</div>
+    <a class="cta-btn" href="mailto:ian@misomoney.com">Book Free 30-Min Session →</a>
+    <div class="cta-foot">misomoney.com · Free, no obligation</div>
+  </div>
+</div>
+
+
+<!-- ===== RETIREMENT ===== -->
+<div class="calc-section" id="calc-retire">
+  <button class="calc-back" onclick="showHome()">← Back to Tools</button>
+  <div class="calc-title">Retirement Savings</div>
+  <div class="calc-sub">How much do you need to retire? · Cần bao nhiêu để về hưu?</div>
+
+  <div class="card">
+    <div style="display:grid;gap:20px;">
+      <div>
+        <div class="field-label">
+          <span class="field-name">Current Age</span>
+          <span class="field-value" id="r-age-val">40</span>
+        </div>
+        <input type="range" class="normal" id="r-age" min="20" max="65" step="1" value="40" oninput="updateRetire()">
+      </div>
+      <div>
+        <div class="field-label">
+          <span class="field-name">Retirement Age</span>
+          <span class="field-value" id="r-ret-val">65</span>
+        </div>
+        <input type="range" class="normal" id="r-ret" min="50" max="75" step="1" value="65" oninput="updateRetire()">
+      </div>
+      <div>
+        <div class="field-label">
+          <span class="field-name">Current Savings</span>
+          <span class="field-value" id="r-saved-val">$50,000</span>
+        </div>
+        <input type="range" class="normal" id="r-saved" min="0" max="1000000" step="1000" value="50000" oninput="updateRetire()">
+      </div>
+      <div>
+        <div class="field-label">
+          <span class="field-name accent">Monthly Contribution</span>
+          <span class="field-value accent" id="r-cont-val">$500</span>
+        </div>
+        <input type="range" class="accent-range" id="r-cont" min="0" max="5000" step="50" value="500" oninput="updateRetire()">
+      </div>
+      <div>
+        <div class="field-label">
+          <span class="field-name">Desired Monthly Retirement Income</span>
+          <span class="field-value" id="r-need-val">$4,000</span>
+        </div>
+        <input type="range" class="normal" id="r-need" min="1000" max="15000" step="100" value="4000" oninput="updateRetire()">
+      </div>
+    </div>
+  </div>
+
+  <div class="results-grid">
+    <div class="result-card">
+      <div class="result-label">Projected at Retirement</div>
+      <div class="result-big gold" id="r-projected">—</div>
+      <div class="result-small" id="r-years-label">in X years</div>
+    </div>
+    <div class="result-card">
+      <div class="result-label">You Need</div>
+      <div class="result-big" id="r-needed">—</div>
+      <div class="result-small">25x annual expenses (4% rule)</div>
+    </div>
+  </div>
+
+  <div class="card" id="r-status-card" style="padding:20px;text-align:center;">
+    <div style="font-size:32px;margin-bottom:8px;" id="r-status-icon">📊</div>
+    <div style="font-size:18px;font-weight:700;" id="r-status-text">Calculating...</div>
+    <div style="font-size:13px;color:var(--muted);margin-top:6px;" id="r-status-detail"></div>
+  </div>
+
+  <div class="cta-block">
+    <div class="cta-label">Let's build your retirement plan</div>
+    <div class="cta-name">Ian Leong, CPA · CFP® Candidate · JuJubes LLC</div>
+    <a class="cta-btn" href="mailto:ian@misomoney.com">Book Free 30-Min Session →</a>
+    <div class="cta-foot">misomoney.com · Free, no obligation</div>
+  </div>
+</div>
+
+
+<!-- ===== EMERGENCY FUND ===== -->
+<div class="calc-section" id="calc-emergency">
+  <button class="calc-back" onclick="showHome()">← Back to Tools</button>
+  <div class="calc-title">Emergency Fund</div>
+  <div class="calc-sub">How much should you save? · Cần tiết kiệm bao nhiêu tiền dự phòng?</div>
+
+  <div class="card">
+    <div style="display:grid;gap:20px;">
+      <div>
+        <div class="field-label">
+          <span class="field-name">Monthly Essential Expenses</span>
+          <span class="field-value" id="e-exp-val">$3,500</span>
+        </div>
+        <input type="range" class="normal" id="e-exp" min="500" max="15000" step="100" value="3500" oninput="updateEmergency()">
+      </div>
+      <div>
+        <div class="field-label">
+          <span class="field-name">Job Stability</span>
+          <span class="field-value" id="e-stab-val">Stable</span>
+        </div>
+        <input type="range" class="normal" id="e-stab" min="1" max="3" step="1" value="2" oninput="updateEmergency()">
+        <div style="display:flex;justify-content:space-between;font-size:11px;color:#555;margin-top:4px;">
+          <span>Unstable</span><span>Stable</span><span>Very Stable</span>
+        </div>
+      </div>
+      <div>
+        <div class="field-label">
+          <span class="field-name">Dependents (kids, parents...)</span>
+          <span class="field-value" id="e-dep-val">1</span>
+        </div>
+        <input type="range" class="normal" id="e-dep" min="0" max="6" step="1" value="1" oninput="updateEmergency()">
+      </div>
+      <div>
+        <div class="field-label">
+          <span class="field-name accent">Current Emergency Savings</span>
+          <span class="field-value accent" id="e-curr-val">$5,000</span>
+        </div>
+        <input type="range" class="accent-range" id="e-curr" min="0" max="50000" step="500" value="5000" oninput="updateEmergency()">
+      </div>
+    </div>
+  </div>
+
+  <div class="results-grid">
+    <div class="result-card">
+      <div class="result-label">Recommended Fund</div>
+      <div class="result-big gold" id="e-target">—</div>
+      <div class="result-small" id="e-months-label">— months of expenses</div>
+    </div>
+    <div class="result-card">
+      <div class="result-label">Gap to Fill</div>
+      <div class="result-big" id="e-gap">—</div>
+      <div class="result-small" id="e-gap-label">still needed</div>
+    </div>
+  </div>
+
+  <div class="card" style="padding:20px;">
+    <div class="tip-card">
+      <div class="tip-vi">🇻🇳 Nhiều gia đình Việt bỏ qua cái này</div>
+      <div class="tip-en">Vietnamese families often skip the emergency fund</div>
+      <div class="tip-detail">Cultural tendency to rely on family in emergencies. But building your own fund protects your relationships AND your finances.</div>
+    </div>
+    <div class="tip-card">
+      <div class="tip-vi">🇻🇳 Để tiền ở đâu?</div>
+      <div class="tip-en">Use a High Yield Savings Account (HYSA)</div>
+      <div class="tip-detail">Marcus, Ally, or SoFi — currently 4-5% APY. Your emergency fund should be earning money too.</div>
+    </div>
+  </div>
+
+  <div class="cta-block">
+    <div class="cta-label">Build your financial foundation</div>
+    <div class="cta-name">Ian Leong, CPA · CFP® Candidate · JuJubes LLC</div>
+    <a class="cta-btn" href="mailto:ian@misomoney.com">Book Free 30-Min Session →</a>
+    <div class="cta-foot">misomoney.com · Free, no obligation</div>
+  </div>
+</div>
+
+
+<!-- ===== NET WORTH ===== -->
+<div class="calc-section" id="calc-networth">
+  <button class="calc-back" onclick="showHome()">← Back to Tools</button>
+  <div class="calc-title">Net Worth Snapshot</div>
+  <div class="calc-sub">What is your financial picture today? · Tài sản thực của bạn là bao nhiêu?</div>
+
+  <div class="card">
+    <div style="font-size:13px;color:var(--gold);letter-spacing:1px;text-transform:uppercase;margin-bottom:16px;">Assets (What You Own)</div>
+    <div style="display:grid;gap:16px;" id="nw-assets-grid">
+      <!-- filled by JS -->
+    </div>
+  </div>
+
+  <div class="card">
+    <div style="font-size:13px;color:var(--red);letter-spacing:1px;text-transform:uppercase;margin-bottom:16px;">Liabilities (What You Owe)</div>
+    <div style="display:grid;gap:16px;" id="nw-liab-grid">
+      <!-- filled by JS -->
+    </div>
+  </div>
+
+  <div class="card" style="text-align:center;padding:32px;">
+    <div style="font-size:13px;color:var(--muted);letter-spacing:1px;text-transform:uppercase;margin-bottom:8px;">Your Net Worth</div>
+    <div style="font-family:'Playfair Display',serif;font-size:48px;font-weight:700;" id="nw-result">$0</div>
+    <div style="font-size:13px;color:var(--muted);margin-top:8px;" id="nw-msg"></div>
+  </div>
+
+  <div class="card" style="padding:20px;">
+    <div class="tip-card">
+      <div class="tip-vi">🇻🇳 Net worth trung bình ở tuổi 40?</div>
+      <div class="tip-en">Median net worth at 40 in the US is ~$135,000</div>
+      <div class="tip-detail">Don't compare — focus on your trajectory. Are you trending up? That's what matters.</div>
+    </div>
+    <div class="tip-card">
+      <div class="tip-vi">🇻🇳 Nhà không phải là tài sản duy nhất</div>
+      <div class="tip-en">Your home is an asset — but so is your 401k</div>
+      <div class="tip-detail">Many Vietnamese families pour everything into real estate. Diversification protects against market downturns.</div>
+    </div>
+  </div>
+
+  <div class="cta-block">
+    <div class="cta-label">Want to grow your net worth faster?</div>
+    <div class="cta-name">Ian Leong, CPA · CFP® Candidate · JuJubes LLC</div>
+    <a class="cta-btn" href="mailto:ian@misomoney.com">Book Free 30-Min Session →</a>
+    <div class="cta-foot">misomoney.com · Free, no obligation</div>
+  </div>
+</div>
+
+<footer>
+  © 2026 Miso Money · JuJubes LLC · Ian Leong, CPA · CFP® Candidate · Ontario, CA<br>
+  <span style="color:#333;">For educational purposes only. Not investment advice.</span>
+</footer>
+
+
+<script>
+// ===== UTILITY =====
+const fc = (v) => new Intl.NumberFormat('en-US',{style:'currency',currency:'USD',maximumFractionDigits:0}).format(v);
+const fm = (m) => {
+  if(m===Infinity||m>1200) return 'Never';
+  const y=Math.floor(m/12), mo=m%12;
+  if(y===0) return mo+'mo';
+  if(mo===0) return y+'yr';
+  return y+'yr '+mo+'mo';
+};
+const fpct = (el, min, max) => {
+  const pct = ((el.value-min)/(max-min))*100;
+  el.style.setProperty('--pct', pct+'%');
+};
+const calcPayoff = (bal, rate, pay) => {
+  if(pay<=0||bal<=0) return {months:0,total:0,interest:0};
+  const mr = rate/100/12;
+  if(mr===0){ const m=Math.ceil(bal/pay); return{months:m,total:pay*m,interest:0}; }
+  if(pay<=bal*mr) return{months:Infinity,total:Infinity,interest:Infinity};
+  const m=Math.ceil(-Math.log(1-(mr*bal)/pay)/Math.log(1+mr));
+  return{months:m,total:pay*m,interest:pay*m-bal};
+};
+const buildSched = (bal, rate, pay) => {
+  const mr=rate/100/12; let b=bal; const rows=[];
+  for(let i=1;i<=12;i++){
+    const int=b*mr; const prin=Math.min(pay-int,b); b=Math.max(0,b-prin);
+    rows.push({month:i,interest:int,principal:prin,balance:b});
+    if(pay<=int) break;
+  }
+  return rows;
+};
+
+// ===== NAV =====
+function showHome(){
+  document.getElementById('home-page').style.display='block';
+  document.querySelectorAll('.calc-section').forEach(el=>el.classList.remove('active'));
+  window.scrollTo(0,0);
+}
+function showCalc(id){
+  document.getElementById('home-page').style.display='none';
+  document.querySelectorAll('.calc-section').forEach(el=>el.classList.remove('active'));
+  document.getElementById('calc-'+id).classList.add('active');
+  window.scrollTo(0,0);
+  if(id==='debt') updateDebt();
+  if(id==='home') updateHome();
+  if(id==='retire') updateRetire();
+  if(id==='emergency') updateEmergency();
+  if(id==='networth') initNetWorth();
+}
+function scrollToContact(){ document.getElementById('contact').scrollIntoView({behavior:'smooth'}); }
+
+// ===== TABS =====
+function switchTab(calc, tab){
+  const prefix = calc+'-tab-';
+  document.querySelectorAll('[id^="'+prefix+'"]').forEach(el=>el.classList.remove('active'));
+  document.getElementById(prefix+tab).classList.add('active');
+  event.target.closest('.tabs').querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  event.target.classList.add('active');
+}
+
+// ===== DEBT PAYOFF =====
+function updateDebt(){
+  const bal=+document.getElementById('d-bal').value;
+  const rate=+document.getElementById('d-rate').value;
+  const pay=+document.getElementById('d-pay').value;
+  const extra=+document.getElementById('d-extra').value;
+
+  fpct(document.getElementById('d-bal'),500,100000);
+  fpct(document.getElementById('d-rate'),0.1,35);
+  fpct(document.getElementById('d-pay'),50,5000);
+  fpct(document.getElementById('d-extra'),0,2000);
+
+  document.getElementById('d-bal-val').textContent=fc(bal);
+  document.getElementById('d-rate-val').textContent=rate.toFixed(2)+'%';
+  document.getElementById('d-pay-val').textContent=fc(pay);
+  document.getElementById('d-extra-val').textContent=extra>0?'+'+fc(extra):'+$0';
+  document.getElementById('d-extra-label').textContent=extra>0?'With +'+fc(extra)+'/mo':'With extra payment';
+
+  const base=calcPayoff(bal,rate,pay);
+  const ext=calcPayoff(bal,rate,pay+extra);
+
+  document.getElementById('d-base-time').textContent=fm(base.months);
+  document.getElementById('d-base-int').textContent=base.interest===Infinity?'∞':fc(base.interest);
+  document.getElementById('d-extra-time').textContent=fm(ext.months);
+  document.getElementById('d-extra-int').textContent=ext.interest===Infinity?'∞':fc(ext.interest);
+
+  const savedTime=base.months-ext.months;
+  const savedMoney=base.interest-ext.interest;
+  const banner=document.getElementById('d-savings');
+  if(extra>0&&savedTime>0&&base.months!==Infinity){
+    banner.classList.add('show');
+    document.getElementById('d-save-time').textContent=fm(savedTime);
+    document.getElementById('d-save-money').textContent=fc(savedMoney);
+  } else { banner.classList.remove('show'); }
+
+  // Compare rows
+  const cr=document.getElementById('compare-rows');
+  cr.innerHTML='';
+  [50,100,200,500].forEach(ex=>{
+    const r=calcPayoff(bal,rate,pay+ex);
+    const saved=base.months===Infinity?0:base.months-r.months;
+    const intSaved=base.interest===Infinity?0:base.interest-r.interest;
+    const row=document.createElement('div');
+    row.className='compare-row'+(ex===extra?' selected':'');
+    row.innerHTML=`<div class="cr-left"><div class="cr-amount${ex===extra?' active':''}">+${fc(ex)}/mo</div><div class="cr-detail">saves ${fc(intSaved)} in interest</div></div><div class="cr-right"><div class="cr-save">${saved>0?'-'+fm(saved):'—'}</div><div class="cr-savelab">off payoff</div></div>`;
+    row.onclick=()=>{ document.getElementById('d-extra').value=ex; updateDebt(); };
+    cr.appendChild(row);
+  });
+
+  // Schedule
+  const sched=buildSched(bal,rate,pay+extra);
+  const tbody=document.getElementById('schedule-body');
+  tbody.innerHTML='';
+  sched.forEach(row=>{
+    const tr=document.createElement('tr');
+    tr.innerHTML=`<td>${row.month}</td><td class="td-int">${fc(row.interest)}</td><td class="td-prin">${fc(row.principal)}</td><td class="td-bal">${fc(row.balance)}</td>`;
+    tbody.appendChild(tr);
+  });
+}
+
+// ===== HOME AFFORDABILITY =====
+function updateHome(){
+  const inc=+document.getElementById('h-inc').value;
+  const debt=+document.getElementById('h-debt').value;
+  const down=+document.getElementById('h-down').value;
+  const rate=+document.getElementById('h-rate').value;
+
+  fpct(document.getElementById('h-inc'),20000,500000);
+  fpct(document.getElementById('h-debt'),0,5000);
+  fpct(document.getElementById('h-down'),5000,300000);
+  fpct(document.getElementById('h-rate'),3,12);
+
+  document.getElementById('h-inc-val').textContent=fc(inc);
+  document.getElementById('h-debt-val').textContent=fc(debt);
+  document.getElementById('h-down-val').textContent=fc(down);
+  document.getElementById('h-rate-val').textContent=rate.toFixed(2)+'%';
+
+  const monthlyInc=inc/12;
+  const maxPI=monthlyInc*0.28;
+  const availPI=maxPI-debt;
+  const mr=rate/100/12;
+  const loanAmt=availPI*((1-Math.pow(1+mr,-360))/mr);
+  const homePrice=loanAmt+down;
+
+  document.getElementById('h-price').textContent=homePrice>0?fc(homePrice):'N/A';
+  document.getElementById('h-monthly').textContent=availPI>0?fc(Math.max(0,availPI)):'Too high';
+
+  const bd=document.getElementById('h-breakdown');
+  bd.innerHTML=`
+    <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border);">
+      <span style="color:var(--muted);font-size:13px;">Monthly gross income</span>
+      <span style="font-weight:600;">${fc(monthlyInc)}</span>
+    </div>
+    <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border);">
+      <span style="color:var(--muted);font-size:13px;">Max housing (28% rule)</span>
+      <span style="font-weight:600;">${fc(maxPI)}</span>
+    </div>
+    <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border);">
+      <span style="color:var(--muted);font-size:13px;">Other debt payments</span>
+      <span style="font-weight:600;color:var(--red);">-${fc(debt)}</span>
+    </div>
+    <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border);">
+      <span style="color:var(--muted);font-size:13px;">Available for mortgage</span>
+      <span style="font-weight:600;color:var(--green);">${fc(Math.max(0,availPI))}</span>
+    </div>
+    <div style="display:flex;justify-content:space-between;padding:8px 0;">
+      <span style="color:var(--muted);font-size:13px;">Max loan amount</span>
+      <span style="font-weight:600;color:var(--gold);">${loanAmt>0?fc(loanAmt):'N/A'}</span>
+    </div>
+  `;
+}
+
+// ===== RETIREMENT =====
+function updateRetire(){
+  const age=+document.getElementById('r-age').value;
+  const ret=+document.getElementById('r-ret').value;
+  const saved=+document.getElementById('r-saved').value;
+  const cont=+document.getElementById('r-cont').value;
+  const need=+document.getElementById('r-need').value;
+
+  fpct(document.getElementById('r-age'),20,65);
+  fpct(document.getElementById('r-ret'),50,75);
+  fpct(document.getElementById('r-saved'),0,1000000);
+  fpct(document.getElementById('r-cont'),0,5000);
+  fpct(document.getElementById('r-need'),1000,15000);
+
+  document.getElementById('r-age-val').textContent=age;
+  document.getElementById('r-ret-val').textContent=ret;
+  document.getElementById('r-saved-val').textContent=fc(saved);
+  document.getElementById('r-cont-val').textContent=fc(cont);
+  document.getElementById('r-need-val').textContent=fc(need);
+
+  const years=Math.max(0,ret-age);
+  const annualReturn=0.07;
+  const mr=annualReturn/12;
+  const months=years*12;
+
+  const fv=saved*Math.pow(1+annualReturn,years)+cont*((Math.pow(1+mr,months)-1)/mr);
+  const needed=need*12*25;
+
+  document.getElementById('r-projected').textContent=fc(fv);
+  document.getElementById('r-needed').textContent=fc(needed);
+  document.getElementById('r-years-label').textContent='in '+years+' years (at '+ret+')';
+
+  const gap=needed-fv;
+  const statusEl=document.getElementById('r-status-icon');
+  const textEl=document.getElementById('r-status-text');
+  const detailEl=document.getElementById('r-status-detail');
+
+  if(fv>=needed){
+    statusEl.textContent='🎉';
+    textEl.style.color='var(--green)';
+    textEl.textContent='You\'re on track!';
+    detailEl.textContent='Projected '+fc(fv)+' vs '+fc(needed)+' needed. Keep contributing!';
+  } else {
+    statusEl.textContent='⚠️';
+    textEl.style.color='var(--gold)';
+    textEl.textContent='Gap of '+fc(gap);
+    const extra=Math.ceil(gap/(((Math.pow(1+mr,months)-1)/mr)));
+    detailEl.textContent='Increase monthly contribution by ~'+fc(extra)+' to close the gap.';
+  }
+}
+
+// ===== EMERGENCY FUND =====
+function updateEmergency(){
+  const exp=+document.getElementById('e-exp').value;
+  const stab=+document.getElementById('e-stab').value;
+  const dep=+document.getElementById('e-dep').value;
+  const curr=+document.getElementById('e-curr').value;
+
+  fpct(document.getElementById('e-exp'),500,15000);
+  fpct(document.getElementById('e-stab'),1,3);
+  fpct(document.getElementById('e-dep'),0,6);
+  fpct(document.getElementById('e-curr'),0,50000);
+
+  const stabLabels=['','Unstable','Stable','Very Stable'];
+  document.getElementById('e-exp-val').textContent=fc(exp);
+  document.getElementById('e-stab-val').textContent=stabLabels[stab];
+  document.getElementById('e-dep-val').textContent=dep;
+  document.getElementById('e-curr-val').textContent=fc(curr);
+
+  let months=3;
+  if(stab===1) months+=2;
+  if(stab===3) months-=1;
+  if(dep>=2) months+=1;
+  if(dep>=4) months+=1;
+  months=Math.max(3,Math.min(9,months));
+
+  const target=exp*months;
+  const gap=Math.max(0,target-curr);
+
+  document.getElementById('e-target').textContent=fc(target);
+  document.getElementById('e-months-label').textContent=months+' months of expenses';
+  document.getElementById('e-gap').textContent=gap>0?fc(gap):'✅ Funded!';
+  document.getElementById('e-gap-label').textContent=gap>0?'still needed':'You\'re covered!';
+  document.getElementById('e-gap').style.color=gap>0?'var(--muted)':'var(--green)';
+}
+
+// ===== NET WORTH =====
+const nwAssets=[
+  {id:'nw-checking',label:'Checking & Savings',val:5000,max:200000,step:500},
+  {id:'nw-invest',label:'Investments (401k, IRA, brokerage)',val:50000,max:2000000,step:1000},
+  {id:'nw-home',label:'Home Value',val:0,max:2000000,step:5000},
+  {id:'nw-car',label:'Vehicle Value',val:15000,max:100000,step:500},
+  {id:'nw-other',label:'Other Assets',val:0,max:200000,step:1000},
+];
+const nwLiabs=[
+  {id:'nw-mortgage',label:'Mortgage Balance',val:0,max:2000000,step:5000},
+  {id:'nw-car-loan',label:'Car Loan',val:10000,max:100000,step:500},
+  {id:'nw-student',label:'Student Loans',val:0,max:200000,step:1000},
+  {id:'nw-credit',label:'Credit Card Debt',val:5000,max:100000,step:500},
+  {id:'nw-other-debt',label:'Other Debt',val:0,max:200000,step:1000},
+];
+
+function initNetWorth(){
+  const ag=document.getElementById('nw-assets-grid');
+  const lg=document.getElementById('nw-liab-grid');
+  ag.innerHTML=''; lg.innerHTML='';
+
+  [...nwAssets].forEach(f=>{
+    ag.innerHTML+=`<div><div class="field-label"><span class="field-name">${f.label}</span><span class="field-value" id="${f.id}-val">${fc(f.val)}</span></div><input type="range" class="accent-range" id="${f.id}" min="0" max="${f.max}" step="${f.step}" value="${f.val}" oninput="updateNW()"></div>`;
+  });
+  [...nwLiabs].forEach(f=>{
+    lg.innerHTML+=`<div><div class="field-label"><span class="field-name">${f.label}</span><span class="field-value" id="${f.id}-val" style="color:var(--red)">${fc(f.val)}</span></div><input type="range" class="normal" id="${f.id}" min="0" max="${f.max}" step="${f.step}" value="${f.val}" oninput="updateNW()"></div>`;
+  });
+  updateNW();
+}
+
+function updateNW(){
+  let totalA=0, totalL=0;
+  nwAssets.forEach(f=>{
+    const v=+document.getElementById(f.id).value;
+    fpct(document.getElementById(f.id),0,f.max);
+    document.getElementById(f.id+'-val').textContent=fc(v);
+    totalA+=v;
+  });
+  nwLiabs.forEach(f=>{
+    const v=+document.getElementById(f.id).value;
+    fpct(document.getElementById(f.id),0,f.max);
+    document.getElementById(f.id+'-val').textContent=fc(v);
+    totalL+=v;
+  });
+  const nw=totalA-totalL;
+  const el=document.getElementById('nw-result');
+  el.textContent=fc(nw);
+  el.style.color=nw>=0?'var(--green)':'var(--red)';
+  document.getElementById('nw-msg').textContent=nw>=0?'Assets: '+fc(totalA)+' · Liabilities: '+fc(totalL):'You owe more than you own. Let\'s fix that.';
+}
+
+// Init on load
+updateDebt();
+</script>
+</body>
+</html>
